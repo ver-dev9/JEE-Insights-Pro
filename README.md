@@ -12,6 +12,7 @@ A responsive JEE Main Paper 1 preparation workspace with an interactive answer-a
 - Provenance-aware question import validator and documented data schema.
 - Playwright screenshot automation for desktop (1440 px) and mobile (390 px).
 - GitHub Actions build and GitHub Pages deployment workflow.
+- Integrated Chapter Heatmap, CBT simulator verification gate, personal analytics foundation, editable study planner and question explorer. See [feature status](docs/INTEGRATED_FEATURES.md).
 
 ## Run locally
 ```bash

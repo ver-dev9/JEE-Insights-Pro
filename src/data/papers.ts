@@ -1,4 +1,4 @@
-export type Paper = { id:string; year:number; session:string; date:string; shift:string; subject:string; paper:string; url:string; source:string; status:'official-pdf'|'official-archive'; note:string; answerKeyUrl?:string };
+export type Paper = { id:string; year:number; session:string; date:string; shift:string; subject:string; paper:string; url:string; source:string; status:'official-pdf'|'official-archive'; note:string; answerKeyUrl?:string; archiveUrl?:string };
 const nta='https://jeemain.nta.nic.in/documents/';
 const jan2026:Paper[] = [
 {id:'2026-01-21-s1',year:2026,session:'Session 1 · January',date:'21 Jan 2026',shift:'Shift 1',subject:'All subjects',paper:'Paper 1 · B.E./B.Tech',url:nta,source:'NTA documents archive',status:'official-archive',note:'NTA confirms this Session 1 date/shift; individual public PDF link is not catalogued here.'},

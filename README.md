@@ -27,8 +27,9 @@ npm run preview
 
 ## Data status
 - Coverage target: JEE Main Paper 1 (B.E./B.Tech), 2022–2026.
-- Directly linked official NTA 2026 paper PDFs: 9.
-- Earlier-year catalogue entries: official NTA document archive entry points, not individual shift links.
+- Directly linked official NTA 2026 Session-II paper PDFs: 9.
+- NTA-confirmed 2026 Session-I date/shift archive entries: 10 (official archive links; not direct question-paper PDFs).
+- Earlier-year catalogue entries: four official NTA document archive entry points for 2022–2025, not individual shift links.
 - Question text transcribed into the app: 0.
 - Detailed worked solutions transcribed: 0.
 - Chapter/topic tags: pending verified question-level import.

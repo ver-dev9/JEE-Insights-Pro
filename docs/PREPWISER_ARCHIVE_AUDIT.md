@@ -1,18 +1,18 @@
 # PrepWiser JEE Main PYQ archive audit
 
-Source reviewed: user-supplied `PrepWiser-JEE-Main-PYQ-PDFs.zip`.
+Source reviewed: user-supplied `PrepWiser-JEE-Main-PYQ-PDFs.zip`. The user stated that they own the PDFs and explicitly authorized their use in this project.
 
 ## Inventory
 
 - 104 chapter PDFs inspected: 37 Physics, 36 Chemistry, 31 Mathematics.
-- The PDF cover metadata reports 11,593 question entries in total.
-- The archive spans 2020–2026 (not only 2022–2026).
-- These are chapter-wise PDF collections, not a verified machine-readable question-bank export.
-- This audit records aggregate counts and coverage metadata only. It does not copy the PDF question wording, options, answer keys, diagrams, or solutions into this public repository.
+- 11,593 question appearances across 2020–2026.
+- 8,366 question appearances across the requested 2022–2026 window.
+- The archive contains chapter/topic PDFs, not a set of complete shift papers.
+- Chapter and year counts are indexed in `src/data/archiveChapterStats.json` and displayed in the Chapter Heatmap dashboard.
 
-## Year-wise question appearances in the supplied chapter PDFs
+## Year-wise question appearances
 
-Counts below are extracted from the question headers across all PDFs. Because a question can appear in more than one chapter/topic PDF, treat these as **PDF appearances**, not deduplicated unique exam questions.
+Counts are extracted from question headers across all PDFs. A question can appear in more than one chapter/topic PDF, so these are PDF appearances, not deduplicated unique exam questions.
 
 | Year | Physics | Chemistry | Mathematics | Total appearances |
 |---|---:|---:|---:|---:|
@@ -25,20 +25,18 @@ Counts below are extracted from the question headers across all PDFs. Because a 
 | 2026 | 467 | 470 | 471 | 1,408 |
 | **Total** | **3,980** | **3,659** | **3,954** | **11,593** |
 
-## Import and rights status
+## Current syllabus mapping
 
-The archive identifies PrepWiser as the publisher and points to its own question/solution pages and terms. Public availability or possession of a PDF does not by itself grant permission to republish the complete question bank on another public website. Therefore the original question text, options, answer keys, diagrams, and worked solutions have **not** been copied into the JEE Insights Pro public repository or database.
+- 96 of the 104 archive chapter PDFs are mapped to one of the current 54 JEE Main Paper 1 syllabus units.
+- 8 historical Chemistry PDFs are retained separately: Chemistry in Everyday Life, Environmental Chemistry, Hydrogen and s-Block Elements, Metallurgy, Nuclear and Radiochemistry, Polymers, Solid State, and Surface Chemistry.
+- Mapping is a navigation aid; it does not imply that every historical topic remains in the current syllabus.
 
-To populate Practice and CBT with full question content, use either:
-1. a written redistribution licence/permission from the rights holder covering public republication; or
-2. a separately sourced dataset with clear redistribution rights (for example, content you authored or are licensed to redistribute).
+## Question-bank status
 
-Once permitted, the existing verified-question import pipeline can be used to validate, classify, deduplicate, and load records by subject, chapter, year, session, and shift.
+The live Practice and CBT engines still read only question rows marked `verified` in Supabase. The archive analytics currently imported into the repository are chapter/year metadata only. The original question statements, options, diagrams and answer keys have **not** yet been imported as verified database records. This prevents incomplete text extraction from being presented as an accurate question.
 
-## Chapter coverage
+The user has authorized use of the PDFs, so the next import stage can extract question records for review. Mathematical notation, diagrams and answer keys still require visual/source validation before records are marked verified or published.
 
-The 104 PDFs use finer-grained chapter/topic labels than the site's 54-unit JEE Main 2027 Paper 1 syllabus catalogue. Several PDF labels are subtopics of a syllabus unit (for example, friction, collisions, centre of mass, calorimetry, and organ pipes), rather than missing official syllabus units. The catalogue should retain the official syllabus units and map these finer labels to them; historical/out-of-syllabus topics should be separately tagged instead of silently presented as current 2027 syllabus chapters.
+## Interpretation
 
-## Important interpretation
-
-These figures describe the supplied PrepWiser archive only. They are not official NTA year-wise subject weightage, and they should not be used as a prediction of future exam weightage. The archive's 2020–2026 coverage also differs from a strict five-year 2022–2026 filter.
+These figures describe the supplied archive only. They are not official NTA chapter weightage percentages, a deduplicated count of unique questions, or predictions of future examination distribution. Complete shift-level weightage requires verified full-paper denominators.

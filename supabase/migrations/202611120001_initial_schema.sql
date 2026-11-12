@@ -183,12 +183,12 @@ create policy "published papers readable" on public.exam_papers for select to an
 create policy "verified questions readable" on public.questions for select to anon,authenticated using (verification_status='verified');
 -- No client policies are created for question_answer_keys. Only trusted server/service role can read/write answer keys.
 create policy "attempts own select" on public.question_attempts for select to authenticated using (user_id=auth.uid());
-create policy "attempts own insert" on public.question_attempts for insert to authenticated with check (user_id=auth.uid());
+create policy "attempts own insert" on public.question_attempts for insert to authenticated with check (user_id=auth.uid() and exists(select 1 from public.questions q where q.id=question_id and q.verification_status='verified'));
 create policy "attempts own update" on public.question_attempts for update to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
 create policy "sessions own select" on public.exam_sessions for select to authenticated using (user_id=auth.uid());
-create policy "sessions own insert" on public.exam_sessions for insert to authenticated with check (user_id=auth.uid());
-create policy "sessions own update" on public.exam_sessions for update to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
-create policy "responses own all" on public.exam_responses for all to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
+create policy "sessions own insert" on public.exam_sessions for insert to authenticated with check (user_id=auth.uid() and exists(select 1 from public.exam_papers p where p.id=paper_id and p.is_published and p.verification_status='verified'));
+-- No client UPDATE policy on exam_sessions: scores/submission state must be server-authoritative.
+create policy "responses own all" on public.exam_responses for all to authenticated using (user_id=auth.uid() and exists(select 1 from public.exam_sessions s where s.id=session_id and s.user_id=auth.uid())) with check (user_id=auth.uid() and exists(select 1 from public.exam_sessions s where s.id=session_id and s.user_id=auth.uid()));
 create policy "tasks own all" on public.study_tasks for all to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
 create policy "goals own all" on public.study_goals for all to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
 create policy "collections own all" on public.question_collections for all to authenticated using (user_id=auth.uid()) with check (user_id=auth.uid());
@@ -214,3 +214,11 @@ language sql security definer set search_path = public as $$
 $$;
 revoke all on function public.reveal_practice_answer(text) from public;
 grant execute on function public.reveal_practice_answer(text) to authenticated;
+
+-- Explicit browser grants; RLS remains the row-level security boundary.
+grant select on public.questions, public.exam_papers to anon, authenticated;
+grant select, insert, update on public.profiles to authenticated;
+grant select, insert, update on public.question_attempts to authenticated;
+grant select, insert on public.exam_sessions to authenticated;
+grant select, insert, update, delete on public.exam_responses, public.study_tasks, public.study_goals, public.question_collections, public.collection_questions, public.question_notes to authenticated;
+-- Intentionally do not grant anon/authenticated direct access to question_answer_keys.

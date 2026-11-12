@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stable-unique-question-id",
+    "paperId": "optional-stable-paper-id",
+    "year": 2026,
+    "session": "Session 2 · April",
+    "date": "2026-04-02",
+    "shift": "Shift 1",
+    "subject": "Physics",
+    "chapter": "Reviewed chapter name",
+    "topic": "Reviewed topic",
+    "difficulty": "Unclassified",
+    "type": "mcq",
+    "prompt": "Transcribe the source question exactly after review.",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "answer": "Reviewed final answer-key value",
+    "solution": "Only include a solution that has been independently reviewed.",
+    "formula": "Optional verified formula",
+    "shortSolution": "Optional verified short solution",
+    "sourceUrl": "https://jeemain.nta.nic.in/documents/",
+    "answerKeySourceUrl": "https://jeemain.nta.nic.in/documents/",
+    "verification": "verified",
+    "answerKeyVerifiedBy": "Reviewer initials or role",
+    "answerKeyVerifiedAt": "2026-11-12T12:00:00.000Z"
+  }
+]

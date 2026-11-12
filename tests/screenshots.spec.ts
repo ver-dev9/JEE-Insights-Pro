@@ -14,7 +14,7 @@ test('capture desktop and mobile product screenshots',async({browser})=>{
  await expect(desktop.getByText('No verified chapter data yet')).toBeVisible();
  await desktop.screenshot({path:'docs/screenshots/chapter-heatmap-empty-state.png',fullPage:true});
  await desktop.getByRole('button',{name:/Question Explorer/}).click();
- await expect(desktop.getByText('Question bank is awaiting verified imports')).toBeVisible();
+ await expect(desktop.getByText('No matching verified questions')).toBeVisible();
  await desktop.screenshot({path:'docs/screenshots/question-explorer-empty-state.png',fullPage:true});
  await mobile.locator('.menu-btn').click();
  await mobile.getByRole('button',{name:/Study Planner/}).click();

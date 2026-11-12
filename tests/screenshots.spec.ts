@@ -16,6 +16,7 @@ test('capture desktop and mobile product screenshots',async({browser})=>{
  await desktop.getByRole('button',{name:/Question Explorer/}).click();
  await expect(desktop.getByText('Question bank is awaiting verified imports')).toBeVisible();
  await desktop.screenshot({path:'docs/screenshots/question-explorer-empty-state.png',fullPage:true});
+ await mobile.locator('.menu-btn').click();
  await mobile.getByRole('button',{name:/Study Planner/}).click();
  await expect(mobile.getByText(/No tasks yet/)).toBeVisible();
  await mobile.screenshot({path:'docs/screenshots/study-planner-mobile.png',fullPage:true});

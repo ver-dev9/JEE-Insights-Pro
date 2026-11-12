@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
-import { BookOpen, CalendarDays, ChartNoAxesCombined, FileText, ShieldCheck } from 'lucide-react';
+import { BookOpen, CalendarDays, ChartNoAxesCombined, ExternalLink, FileText, ShieldCheck } from 'lucide-react';
 import { chapterCatalog, chapterDetails } from './data/chapterCatalog';
 import archiveData from './data/archiveChapterStats.json';
+import chapterPracticeData from './data/chapterPracticeLinks.json';
 
 type Subject = 'Physics' | 'Chemistry' | 'Mathematics';
 type ArchiveRow = [code:string, name:string, file:string, unitId:string|null, total2022to26:number, years:number[]];
@@ -10,6 +11,8 @@ const subjects: Subject[] = ['Physics', 'Chemistry', 'Mathematics'];
 const subjectCode: Record<Subject,string> = { Physics:'P', Chemistry:'C', Mathematics:'M' };
 const years = archiveData.years as number[];
 const archiveRows = archiveData.rows as unknown as ArchiveRow[];
+const chapterPracticeLinks = chapterPracticeData as unknown as [string,string,string][];
+const subjectNameByCode: Record<string,Subject> = { P:'Physics', C:'Chemistry', M:'Mathematics' };
 const panel: React.CSSProperties = { background:'#101a2b', border:'1px solid #24364f', borderRadius:16, padding:18 };
 const muted: React.CSSProperties = { color:'#91a7c2', fontSize:12, lineHeight:1.65 };
 const pill: React.CSSProperties = { border:'1px solid #2b405d', background:'#17263c', color:'#c8dcf5', borderRadius:9, padding:'9px 13px', cursor:'pointer', fontSize:12 };
@@ -31,6 +34,7 @@ export default function ChapterIntelligence({ records }:{ records:RecordRow[] })
  const historical=archiveRows.filter(r=>r[0]===subjectCode[subject]&&!r[3]);
  const currentSyllabusUnits=chapterCatalog.filter(c=>c.subject===subject);
  const topFiles=[...chapterFiles].sort((a,b)=>fileCount(b)-fileCount(a));
+ const practiceUrl=(r:ArchiveRow)=>chapterPracticeLinks.find(x=>x[0]===subjectNameByCode[r[0]]&&x[1]===r[1])?.[2];
  const maxYearCount=Math.max(1,...chapterYearCounts.map(x=>x.count));
  const totalMappedFiles=archiveRows.filter(r=>r[3]).length;
  return <div style={{display:'grid',gap:16,marginTop:18}}>
@@ -59,8 +63,8 @@ export default function ChapterIntelligence({ records }:{ records:RecordRow[] })
    </div>
   </div>
   <section style={panel}>
-   <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12,color:'#eaf2ff',fontWeight:700}}><FileText size={17}/> SOURCE PDF CHAPTER BREAKDOWN</div>
-   {topFiles.length? <div style={{display:'grid',gap:8}}>{topFiles.map(r=><div key={r[2]} style={{display:'grid',gridTemplateColumns:'minmax(0,1.5fr) 90px 90px',gap:10,alignItems:'center',padding:'10px 12px',background:'#142238',border:'1px solid #263a54',borderRadius:9}}><div><b style={{color:'#e5efff',fontSize:13}}>{r[1]}</b><div style={muted}>{r[2]}</div></div><div style={{textAlign:'right'}}><b style={{color:'#b9d2ff'}}>{fileCount(r)}</b><div style={muted}>{year==='All years'?'2022–26':'Selected year'}</div></div><div style={{textAlign:'right'}}><b style={{color:'#d7e8ff'}}>{r[5].reduce((a,b)=>a+b,0)}</b><div style={muted}>year total</div></div></div>)}</div>:<p style={muted}>No source PDF chapter has been mapped to this syllabus unit yet.</p>}
+   <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12,color:'#eaf2ff',fontWeight:700}}><FileText size={17}/> SOURCE CHAPTER BREAKDOWN · OPEN PYQ PRACTICE</div>
+   {topFiles.length? <div style={{display:'grid',gap:8}}>{topFiles.map(r=>{const url=practiceUrl(r);return <div key={r[2]} style={{display:'grid',gridTemplateColumns:'minmax(0,1.5fr) 80px 80px auto',gap:10,alignItems:'center',padding:'10px 12px',background:'#142238',border:'1px solid #263a54',borderRadius:9}}><div><b style={{color:'#e5efff',fontSize:13}}>{r[1]}</b><div style={muted}>{r[2]}</div></div><div style={{textAlign:'right'}}><b style={{color:'#b9d2ff'}}>{fileCount(r)}</b><div style={muted}>{year==='All years'?'2022–26':'Selected year'}</div></div><div style={{textAlign:'right'}}><b style={{color:'#d7e8ff'}}>{r[5].reduce((a,b)=>a+b,0)}</b><div style={muted}>year total</div></div>{url?<a href={url} target='_blank' rel='noreferrer' style={{...pill,textDecoration:'none',whiteSpace:'nowrap',display:'inline-flex',alignItems:'center',gap:5}}>Practice <ExternalLink size={12}/></a>:<span style={muted}>—</span>}</div>})}</div>:<p style={muted}>No source PDF chapter has been mapped to this syllabus unit yet.</p>}
   </section>
   <section style={panel}>
    <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12,color:'#eaf2ff',fontWeight:700}}><BookOpen size={17}/> SYLLABUS TOPIC CHECKLIST</div>

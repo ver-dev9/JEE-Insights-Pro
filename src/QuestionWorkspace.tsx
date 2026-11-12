@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Clock3, Flag, ChevronLeft, ChevronRight, Send, Database, Target } from 'lucide-react';
+import { Clock3, Flag, ChevronLeft, ChevronRight, Send, Database } from 'lucide-react';
 import { supabase } from './lib/supabase';
 type Q = {id:string;year:number;session:string;exam_date:string;shift:string;subject:string;chapter:string;topic:string;difficulty:string;question_type:string;question_text:string;options:any};
 type Props = { mode:'practice'|'cbt' };

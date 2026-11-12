@@ -1,33 +1,30 @@
 # Verified JEE Main Paper 1 data collection
 
-## Official NTA entry points checked 12 November 2026
-
-- NTA JEE Main homepage and current question-paper links: https://jeemain.nta.nic.in/
-- NTA Documents archive: https://jeemain.nta.nic.in/documents/
-- 2025 document archive, page 5: https://jeemain.nta.nic.in/documents/page/5/
-- 2025 public notices: https://jeemain.nta.nic.in/document-category/2025-public-notices/
-- 2025 public notices, page 2: https://jeemain.nta.nic.in/document-category/2025-public-notices/page/2/
-
-NTA currently exposes the 2026 Paper 1 Session 2 question-paper links from the homepage and lists a 2026 Paper 1 session document and final answer-key documents in the documents archive. The 2025 archive includes final-answer-key records for Paper 1 sessions. The existence of these PDFs does not mean every shift's question text, answer mapping, topic classification or worked solution has been imported into this repository.
-
 ## Current import status
 
-- Verified question records in the committed static JSON: **0**
-- Reviewed 2022–2026 complete shift papers imported: **0**
-- Question-level final answer mappings reviewed: **0**
-- No chapter-frequency, difficulty or weightage statistics should be inferred from source-link counts.
+- User-supplied archive indexed: **104 PDFs** (37 Physics, 36 Chemistry, 31 Mathematics).
+- Chapter/year analysis available in the site: **8,366 question appearances for 2022–2026** and **11,593 for 2020–2026**.
+- Verified question rows in Supabase/static question JSON: **0**.
+- Complete 2022–2026 shift papers imported and QA-approved: **0**.
+- Final answer-key mappings reviewed in the database: **0**.
 
-## Required human verification
+The user stated that they own the uploaded PDFs and explicitly authorized their use in JEE Insights Pro. The repository currently contains the archive's chapter/year metadata, not the full PDF binaries or verified question text.
 
-For each question, verify exact question statement/options, year/session/date/shift, subject, chapter/topic, question type, and final answer key. Record the exact source URLs and reviewer/time. Use `docs/verified-question-import-template.json` as the record shape. Only records with `verification: "verified"` pass the production validator.
+## What is live now
 
-## Import path
+- The Chapter Heatmap page displays all current syllabus units.
+- Each mapped unit shows its source chapter-PDF coverage and year-wise question appearances for 2022–2026.
+- Historical Chemistry PDFs outside the current syllabus mapping are shown separately.
+- The dashboard labels counts as PDF appearances because a question may occur in more than one chapter/topic PDF.
 
-1. Prepare a JSON array from source documents and manually review every record.
+## Remaining question-bank import work
+
+The Practice and CBT components intentionally query only `verification_status='verified'` rows from Supabase. Do not mark extracted text as verified automatically. For each question, visually check the complete statement, mathematical notation, diagrams, options, year/date/shift, chapter/topic and final answer. Then use the existing import pipeline:
+
+1. Prepare reviewed records using `docs/verified-question-import-template.json`.
 2. Run `node scripts/validate-question-import.mjs path/to/reviewed.json`.
 3. Configure local untracked `.env.local` with `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
 4. Run `node scripts/import-verified-questions.mjs path/to/reviewed.json`.
-5. The script stores question statements in `questions` and answers/solutions in `question_answer_keys`. It never writes the service-role key into the frontend.
-6. Imported paper records are deliberately unpublished; verify the complete paper and marking scheme, then publish through a controlled admin workflow.
+5. Keep paper batches unpublished until their complete question count, subject counts, marking scheme and final answer key have been audited.
 
-Do not copy complete question papers from unofficial sources into production without checking rights and official provenance. NTA's candidate response sheets and recorded-response materials may require candidate login and are not public question-bank datasets.
+Never put the Supabase service-role key in frontend variables or commit it.

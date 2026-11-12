@@ -10,7 +10,7 @@ A student-focused JEE Main preparation and paper-archive dashboard. The first re
 - Direct official NTA PDF links for the nine B.Tech papers listed on the NTA 2026 homepage.
 - Official NTA documents archive links for 2022–2025.
 - Source and verification metadata per paper record.
-- Persistent local bookmarks and practice history scaffold (browser local storage).
+- Local browser bookmarks (stored in browser local storage).
 - GitHub Pages deployment workflow.
 
 ## Run locally

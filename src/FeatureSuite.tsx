@@ -3,7 +3,7 @@ import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieCh
 import { Download, Search, ShieldAlert, Sparkles, Plus, Trash2, LockKeyhole, Database, ChartNoAxesCombined } from 'lucide-react';
 import questions from './data/questions.json';
 import { chapterCatalog } from './data/chapterCatalog';
-import { supabase, supabaseConfigured } from './lib/supabase';
+import { supabase } from './lib/supabase';
 
 type Page = 'Chapter Heatmap' | 'Exam Simulator' | 'Personal Analytics' | 'Study Planner' | 'Question Explorer';
 type Task = { id:string; title:string; subject:string; minutes:number; done:boolean; day:string };
@@ -17,10 +17,8 @@ export default function FeatureSuite({page}:{page:Page}) {
  const [subject,setSubject]=useState('All subjects'),[period,setPeriod]=useState('All available years'),[search,setSearch]=useState('');
  const [tasks,setTasks]=useState<Task[]>(()=>JSON.parse(localStorage.getItem('ji-planner-tasks')||'[]'));
  const [draft,setDraft]=useState(''),[minutes,setMinutes]=useState(60),[taskSubject,setTaskSubject]=useState('Physics');
- const [authEmail,setAuthEmail]=useState(''),[authMessage,setAuthMessage]=useState(''),[signedInEmail,setSignedInEmail]=useState('');
+ const [,setAuthMessage]=useState(''),[signedInEmail,setSignedInEmail]=useState('');
  useEffect(()=>{ if(!supabase)return; let active=true; supabase.auth.getSession().then(({data})=>{if(active)setSignedInEmail(data.session?.user.email||'')}); const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>{setSignedInEmail(session?.user.email||'')}); return ()=>{active=false;subscription.unsubscribe()}; },[]);
- const signOut=async()=>{if(supabase){await supabase.auth.signOut();setAuthMessage('Signed out.')}};
- const sendSignInLink=async()=>{if(!supabase){setAuthMessage('Supabase is not configured yet. Add the project URL and public anon key to the deployment environment.');return;} if(!authEmail.trim()){setAuthMessage('Enter your email address first.');return;} const {error}=await supabase.auth.signInWithOtp({email:authEmail.trim(),options:{emailRedirectTo:new URL(import.meta.env.BASE_URL,window.location.origin).toString()}});setAuthMessage(error?error.message:'Sign-in link sent. Check your email.');};
  const [attempts]=useState<Record<string,{answer:string;correct:boolean}>>(()=>JSON.parse(localStorage.getItem('ji-attempts')||'{}'));
  const [databaseRecords,setDatabaseRecords]=useState<Record<string,any>[]>(records);
  const [dataStatus,setDataStatus]=useState('Showing committed verified records only.');

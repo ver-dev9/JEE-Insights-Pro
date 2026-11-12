@@ -29,7 +29,6 @@ export default function ChapterIntelligence({ records }:{ records:RecordRow[] })
  const fileCount=(r:ArchiveRow)=>visibleYearIndex<0?r[4]:r[5][visibleYearIndex]||0;
  const chapterAppearances=chapterFiles.reduce((n,r)=>n+fileCount(r),0);
  const chapterYearCounts=years.map((y,i)=>({year:y,count:chapterFiles.reduce((n,r)=>n+(r[5][i]||0),0)}));
- const subjectFiles=archiveRows.filter(r=>r[0]===subjectCode[subject]);
  const subjectQuestionRecords=records.filter(r=>r.subject===subject&&(year==='All years'||String(r.year)===year));
  const historical=archiveRows.filter(r=>r[0]===subjectCode[subject]&&!r[3]);
  const currentSyllabusUnits=chapterCatalog.filter(c=>c.subject===subject);

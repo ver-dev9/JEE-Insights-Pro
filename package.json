@@ -1,7 +1,7 @@
 {
   "name": "jee-insights-pro",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -10,17 +10,17 @@
     "typecheck": "tsc -b"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "typescript": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "lucide-react": "latest",
-    "framer-motion": "latest"
+    "@vitejs/plugin-react": "4.3.4",
+    "vite": "5.4.14",
+    "typescript": "5.7.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "lucide-react": "0.468.0"
   },
   "devDependencies": {
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@types/node": "latest"
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "@types/node": "22.13.4",
+    "@playwright/test": "1.50.1"
   }
 }

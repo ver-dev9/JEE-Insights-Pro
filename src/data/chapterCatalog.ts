@@ -54,4 +54,467 @@ export const chapterCatalog: Chapter[] = [
 { id:'math-12',subject:'Mathematics',unit:12,name:'Vector Algebra',focus:'Vector operations, products, components, projections and geometric applications.' },
 { id:'math-13',subject:'Mathematics',unit:13,name:'Statistics and Probability',focus:'Dispersion, variance, standard deviation, probability, conditional probability and Bayes theorem.' },
 { id:'math-14',subject:'Mathematics',unit:14,name:'Trigonometry',focus:'Identities, equations, inverse trigonometric functions and properties.' }
-];
+ ];
+
+// Topic-level breakdown aligned to the official JEE Main 2027 Paper 1 syllabus.
+export const chapterDetails = {
+  "phy-01": [
+    "SI and derived units",
+    "Least count and significant figures",
+    "Errors in measurement",
+    "Dimensions and dimensional analysis"
+  ],
+  "phy-02": [
+    "Frame of reference",
+    "1D motion and graphs",
+    "Relative velocity",
+    "Projectile motion",
+    "Uniform circular motion"
+  ],
+  "phy-03": [
+    "Newton's laws",
+    "Momentum and impulse",
+    "Conservation of momentum",
+    "Equilibrium of forces",
+    "Static and kinetic friction",
+    "Circular motion dynamics"
+  ],
+  "phy-04": [
+    "Work by constant and variable forces",
+    "Work-energy theorem",
+    "Potential energy and power",
+    "Conservation of mechanical energy",
+    "Vertical circular motion",
+    "Elastic and inelastic collisions"
+  ],
+  "phy-05": [
+    "Centre of mass",
+    "Torque and angular momentum",
+    "Conservation of angular momentum",
+    "Moment of inertia and radius of gyration",
+    "Parallel and perpendicular axes",
+    "Rigid body equilibrium and rotation"
+  ],
+  "phy-06": [
+    "Universal gravitation",
+    "Variation of g",
+    "Kepler laws",
+    "Gravitational field and potential",
+    "Escape and orbital velocity",
+    "Satellite energy and time period"
+  ],
+  "phy-07": [
+    "Elasticity and elastic moduli",
+    "Fluid pressure and Pascal law",
+    "Viscosity and Stokes law",
+    "Bernoulli principle and fluid flow",
+    "Surface tension and capillarity",
+    "Thermal expansion and calorimetry",
+    "Heat transfer"
+  ],
+  "phy-08": [
+    "Thermal equilibrium and zeroth law",
+    "Heat, work and internal energy",
+    "First law",
+    "Isothermal and adiabatic processes",
+    "Second law",
+    "Reversible and irreversible processes"
+  ],
+  "phy-09": [
+    "Ideal gas equation",
+    "Kinetic theory assumptions",
+    "Pressure and temperature interpretation",
+    "RMS speed",
+    "Degrees of freedom",
+    "Equipartition and specific heat",
+    "Mean free path"
+  ],
+  "phy-10": [
+    "Periodic motion and SHM",
+    "Spring oscillator and energy",
+    "Simple pendulum",
+    "Progressive waves",
+    "Superposition and reflection",
+    "Standing waves and organ pipes",
+    "Harmonics and beats"
+  ],
+  "phy-11": [
+    "Coulomb law and superposition",
+    "Continuous charge distribution",
+    "Electric field and dipole",
+    "Electric flux and Gauss law",
+    "Electric potential and potential energy",
+    "Conductors and dielectrics",
+    "Capacitance and combinations",
+    "Energy stored in capacitors"
+  ],
+  "phy-12": [
+    "Current and drift velocity",
+    "Ohm law and I-V curves",
+    "Resistance and resistivity",
+    "Cells and internal resistance",
+    "Kirchhoff laws",
+    "Wheatstone and metre bridge"
+  ],
+  "phy-13": [
+    "Biot-Savart law",
+    "Ampere law",
+    "Lorentz force",
+    "Force between current-carrying conductors",
+    "Torque on current loop",
+    "Moving coil galvanometer",
+    "Magnetic dipole and bar magnet",
+    "Magnetic materials"
+  ],
+  "phy-14": [
+    "Faraday and Lenz laws",
+    "Eddy currents",
+    "Self and mutual inductance",
+    "AC peak and RMS values",
+    "Reactance and impedance",
+    "Series LCR resonance",
+    "AC power",
+    "Generator and transformer"
+  ],
+  "phy-15": [
+    "Displacement current",
+    "EM wave properties",
+    "Electromagnetic spectrum",
+    "Applications of EM waves"
+  ],
+  "phy-16": [
+    "Spherical mirrors",
+    "Refraction and lenses",
+    "Lens maker formula",
+    "Total internal reflection",
+    "Prism",
+    "Microscope and telescope",
+    "Huygens principle",
+    "Young double-slit experiment",
+    "Interference and diffraction",
+    "Polarisation and Brewster law"
+  ],
+  "phy-17": [
+    "Photoelectric effect",
+    "Einstein equation",
+    "Photon model",
+    "Matter waves and de Broglie relation"
+  ],
+  "phy-18": [
+    "Rutherford model",
+    "Bohr model and hydrogen spectrum",
+    "Nuclear composition and size",
+    "Mass defect and binding energy",
+    "Fission and fusion"
+  ],
+  "phy-19": [
+    "Semiconductors",
+    "p-n junction diode",
+    "Rectification",
+    "LED, photodiode and solar cell",
+    "Zener diode and regulation",
+    "Logic gates"
+  ],
+  "phy-20": [
+    "Vernier calipers and screw gauge",
+    "Simple pendulum",
+    "Principle of moments",
+    "Young modulus",
+    "Surface tension and viscosity experiments",
+    "Resonance tube",
+    "Calorimetry",
+    "Metre bridge and Ohm law",
+    "Galvanometer",
+    "Optics experiments",
+    "Diode and Zener characteristics",
+    "Component identification"
+  ],
+  "chem-01": [
+    "Laws of chemical combination",
+    "Atomic and molecular masses",
+    "Mole concept",
+    "Percentage composition",
+    "Empirical and molecular formula",
+    "Stoichiometry"
+  ],
+  "chem-02": [
+    "Electromagnetic radiation",
+    "Bohr model",
+    "Photoelectric effect",
+    "de Broglie relation",
+    "Uncertainty principle",
+    "Quantum numbers and orbitals",
+    "Electronic configuration and filling rules"
+  ],
+  "chem-03": [
+    "Ionic and covalent bonding",
+    "Lattice enthalpy and Fajans rule",
+    "Dipole moment",
+    "VSEPR theory",
+    "Valence bond theory and hybridisation",
+    "Resonance",
+    "Molecular orbital theory",
+    "Bond order and hydrogen bonding"
+  ],
+  "chem-04": [
+    "Thermodynamic systems and state functions",
+    "First law",
+    "Enthalpy and Hess law",
+    "Entropy",
+    "Spontaneity",
+    "Gibbs energy and equilibrium"
+  ],
+  "chem-05": [
+    "Concentration terms",
+    "Raoult law",
+    "Ideal and non-ideal solutions",
+    "Vapour pressure",
+    "Colligative properties",
+    "van't Hoff factor"
+  ],
+  "chem-06": [
+    "Dynamic and physical equilibrium",
+    "Kp and Kc",
+    "Le Chatelier principle",
+    "Acid-base theories",
+    "pH and ionisation",
+    "Common ion effect",
+    "Salt hydrolysis",
+    "Solubility product and buffers"
+  ],
+  "chem-07": [
+    "Redox concepts and balancing",
+    "Conductance and molar conductivity",
+    "Kohlrausch law",
+    "Galvanic and electrolytic cells",
+    "Electrode potential and cell emf",
+    "Nernst equation",
+    "Batteries and fuel cells"
+  ],
+  "chem-08": [
+    "Rate of reaction",
+    "Order and molecularity",
+    "Rate law",
+    "Zero and first order equations",
+    "Half-life",
+    "Arrhenius equation",
+    "Activation energy and collision theory"
+  ],
+  "chem-09": [
+    "Modern periodic law",
+    "Periodic table blocks",
+    "Atomic and ionic radii",
+    "Ionisation enthalpy",
+    "Electron gain enthalpy",
+    "Valency and oxidation states"
+  ],
+  "chem-10": [
+    "Groups 13 to 18",
+    "Electronic configurations",
+    "Periodic trends",
+    "Physical and chemical properties",
+    "Anomalous behaviour of first elements"
+  ],
+  "chem-11": [
+    "Transition element properties",
+    "Oxidation states and colour",
+    "Magnetic and catalytic behaviour",
+    "Complex formation",
+    "KMnO4 and K2Cr2O7",
+    "Lanthanoids and contraction",
+    "Actinoids"
+  ],
+  "chem-12": [
+    "Werner theory",
+    "Ligands and coordination number",
+    "Denticity and chelation",
+    "Nomenclature",
+    "Isomerism",
+    "VBT and CFT basics",
+    "Colour and magnetic properties",
+    "Applications"
+  ],
+  "chem-13": [
+    "Crystallisation and sublimation",
+    "Distillation and extraction",
+    "Chromatography",
+    "Qualitative elemental analysis",
+    "Quantitative analysis",
+    "Empirical formula calculations"
+  ],
+  "chem-14": [
+    "Tetravalency and hybridisation",
+    "Functional groups and homologous series",
+    "Structural and stereoisomerism",
+    "IUPAC nomenclature",
+    "Bond fission and intermediates",
+    "Electrophiles and nucleophiles",
+    "Inductive, electromeric, resonance and hyperconjugation",
+    "Organic reaction types"
+  ],
+  "chem-15": [
+    "Alkanes and conformations",
+    "Alkane halogenation",
+    "Alkenes and geometrical isomerism",
+    "Electrophilic addition",
+    "Markovnikov and peroxide effects",
+    "Ozonolysis and polymerisation",
+    "Alkynes",
+    "Benzene and aromaticity",
+    "Electrophilic aromatic substitution",
+    "Friedel-Crafts reactions"
+  ],
+  "chem-16": [
+    "Preparation and properties",
+    "C-X bond",
+    "Nucleophilic substitution",
+    "Environmental effects and uses"
+  ],
+  "chem-17": [
+    "Alcohols and dehydration",
+    "Phenols and acidity",
+    "Ethers",
+    "Aldehydes and ketones",
+    "Nucleophilic addition",
+    "Grignard reagent",
+    "Oxidation and reduction",
+    "Aldol, Cannizzaro and haloform",
+    "Carboxylic acids"
+  ],
+  "chem-18": [
+    "Amines: preparation and properties",
+    "Nomenclature and classification",
+    "Basicity",
+    "Identification tests",
+    "Diazonium salts"
+  ],
+  "chem-19": [
+    "Carbohydrates",
+    "Glucose and fructose",
+    "Sucrose, lactose and maltose",
+    "Amino acids and proteins",
+    "Protein structures and enzymes",
+    "Vitamins",
+    "DNA and RNA",
+    "Hormones"
+  ],
+  "chem-20": [
+    "Detection of extra elements",
+    "Functional group tests",
+    "Inorganic and organic preparations",
+    "Titrimetric exercises",
+    "Qualitative salt analysis",
+    "Enthalpy experiments",
+    "Colloids and kinetics practicals"
+  ],
+  "math-01": [
+    "Sets and operations",
+    "Power set",
+    "Relations and equivalence",
+    "Types of functions",
+    "One-one, into and onto",
+    "Composition of functions"
+  ],
+  "math-02": [
+    "Complex number algebra",
+    "Argand plane",
+    "Modulus and argument",
+    "Quadratic equations",
+    "Roots and coefficients",
+    "Nature of roots"
+  ],
+  "math-03": [
+    "Matrix types and operations",
+    "Determinants of order 2 and 3",
+    "Determinant properties",
+    "Adjoint and inverse",
+    "Consistency and linear systems"
+  ],
+  "math-04": [
+    "Fundamental counting principle",
+    "Permutations",
+    "Combinations",
+    "Selection and arrangement problems"
+  ],
+  "math-05": [
+    "Binomial theorem",
+    "General term",
+    "Middle term",
+    "Coefficient applications"
+  ],
+  "math-06": [
+    "Sequences and series",
+    "Arithmetic progression",
+    "Geometric progression",
+    "Arithmetic and geometric means",
+    "AM-GM relation"
+  ],
+  "math-07": [
+    "Functions and graphs",
+    "Limits",
+    "Continuity",
+    "Differentiability",
+    "Derivative rules",
+    "Implicit and composite differentiation",
+    "Second derivatives",
+    "Rate of change",
+    "Monotonicity",
+    "Maxima and minima"
+  ],
+  "math-08": [
+    "Antiderivatives",
+    "Standard integrals",
+    "Substitution",
+    "Integration by parts",
+    "Partial fractions",
+    "Definite integrals",
+    "Fundamental theorem",
+    "Area under curves"
+  ],
+  "math-09": [
+    "Order and degree",
+    "Formation of equations",
+    "Separation of variables",
+    "Homogeneous equations",
+    "First-order linear equations"
+  ],
+  "math-10": [
+    "Cartesian coordinates and locus",
+    "Distance and section formula",
+    "Straight lines and angles",
+    "Concurrency and distances",
+    "Triangle centres",
+    "Circle",
+    "Parabola",
+    "Ellipse",
+    "Hyperbola"
+  ],
+  "math-11": [
+    "3D coordinates",
+    "Distance and section formula",
+    "Direction ratios and cosines",
+    "Line in space",
+    "Skew lines",
+    "Shortest distance"
+  ],
+  "math-12": [
+    "Scalars and vectors",
+    "Vector addition and components",
+    "Scalar product",
+    "Vector product"
+  ],
+  "math-13": [
+    "Mean, median and mode",
+    "Measures of dispersion",
+    "Variance and standard deviation",
+    "Probability theorems",
+    "Bayes theorem",
+    "Random variables and distributions"
+  ],
+  "math-14": [
+    "Trigonometric functions",
+    "Identities and equations",
+    "Inverse trigonometric functions",
+    "Properties of inverse trigonometric functions"
+  ]
+} as const;

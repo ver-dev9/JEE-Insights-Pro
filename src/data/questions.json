@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "coverageTarget": {
+    "exam": "JEE Main Paper 1 (B.E./B.Tech)",
+    "years": [
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "records": [],
+  "status": "not-yet-imported",
+  "note": "No official question has been transcribed into this dataset yet. Demo examples live separately in demoQuestions.ts and are not PYQs."
+}

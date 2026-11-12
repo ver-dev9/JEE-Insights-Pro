@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Activity, BookOpen, CalendarDays, ChartNoAxesCombined, FileText, ShieldCheck } from 'lucide-react';
+import { BookOpen, CalendarDays, ChartNoAxesCombined, FileText, ShieldCheck } from 'lucide-react';
 import { chapterCatalog, chapterDetails } from './data/chapterCatalog';
 import archiveData from './data/archiveChapterStats.json';
 
@@ -27,7 +27,6 @@ export default function ChapterIntelligence({ records }:{ records:RecordRow[] })
  const chapterAppearances=chapterFiles.reduce((n,r)=>n+fileCount(r),0);
  const chapterYearCounts=years.map((y,i)=>({year:y,count:chapterFiles.reduce((n,r)=>n+(r[5][i]||0),0)}));
  const subjectFiles=archiveRows.filter(r=>r[0]===subjectCode[subject]);
- const subjectAppearances=subjectFiles.reduce((n,r)=>n+fileCount(r),0);
  const subjectQuestionRecords=records.filter(r=>r.subject===subject&&(year==='All years'||String(r.year)===year));
  const historical=archiveRows.filter(r=>r[0]===subjectCode[subject]&&!r[3]);
  const currentSyllabusUnits=chapterCatalog.filter(c=>c.subject===subject);

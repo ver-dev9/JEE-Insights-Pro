@@ -1,7 +1,6 @@
 import {useMemo,useState} from 'react';
 import {Activity,ArrowUpRight,BookOpen,Bookmark,CheckCircle2,ChevronDown,Database,FileText,Filter,LayoutDashboard,Menu,Search,ShieldCheck,Sparkles,Target,X} from 'lucide-react';
 import {papers,officialNta} from './data/papers';
-import {demoQuestions} from './data/demoQuestions';
 import FeatureSuite from './FeatureSuite';
 const nav=[['Overview',LayoutDashboard],['Practice',Target],['PYQ Archive',BookOpen],['Analytics',Activity],['Data Sources',Database],['Chapter Heatmap',Activity],['Exam Simulator',Target],['Personal Analytics',Activity],['Study Planner',Sparkles],['Question Explorer',Search]] as const;
 const years=['All years','2026','2025','2024','2023','2022'];

@@ -1,15 +1,17 @@
-name: Deploy to GitHub Pages
+name: Build, screenshot and deploy
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'docs/screenshots/**'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,9 +20,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - run: npm install
       - run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Capture desktop and mobile screenshots
+        run: |
+          npm run preview -- --host 127.0.0.1 > /tmp/jee-preview.log 2>&1 &
+          npx playwright test --config=playwright.config.ts
+      - name: Commit screenshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/screenshots
+          if ! git diff --cached --quiet; then
+            git commit -m "Add automated desktop and mobile screenshots"
+            git push
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist

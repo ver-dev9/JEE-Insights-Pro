@@ -1,23 +1,17 @@
 import {useMemo,useState} from 'react';
-import {Activity,ArrowRight,ArrowUpRight,BookOpen,Bookmark,CheckCircle2,ChevronDown,Database,FileText,Filter,LayoutDashboard,Menu,Search,ShieldCheck,Sparkles,Target,X} from 'lucide-react';
+import {Activity,ArrowUpRight,BookOpen,Bookmark,CheckCircle2,ChevronDown,Database,FileText,Filter,LayoutDashboard,Menu,Search,ShieldCheck,Sparkles,Target,X} from 'lucide-react';
 import {papers,officialNta} from './data/papers';
 import {demoQuestions} from './data/demoQuestions';
 import FeatureSuite from './FeatureSuite';
-type Q=typeof demoQuestions[number];
 const nav=[['Overview',LayoutDashboard],['Practice',Target],['PYQ Archive',BookOpen],['Analytics',Activity],['Data Sources',Database],['Chapter Heatmap',Activity],['Exam Simulator',Target],['Personal Analytics',Activity],['Study Planner',Sparkles],['Question Explorer',Search]] as const;
 const years=['All years','2026','2025','2024','2023','2022'];
 function App(){
  const [page,setPage]=useState('Overview'),[menu,setMenu]=useState(false),[query,setQuery]=useState(''),[year,setYear]=useState('All years');
- const [idx,setIdx]=useState(0),[answer,setAnswer]=useState(''),[checked,setChecked]=useState(false);
  const [saved,setSaved]=useState<string[]>(()=>JSON.parse(localStorage.getItem('ji-bookmarks')||'[]'));
  const [attempts,setAttempts]=useState<Record<string,{answer:string;correct:boolean}>>(()=>JSON.parse(localStorage.getItem('ji-attempts')||'{}'));
- const [marked,setMarked]=useState<string[]>(()=>JSON.parse(localStorage.getItem('ji-marked')||'[]'));
  const filtered=useMemo(()=>papers.filter(p=>(year==='All years'||String(p.year)===year)&&(p.year+' '+p.date+' '+p.session+' '+p.shift).toLowerCase().includes(query.toLowerCase())),[year,query]);
- const q:Q=demoQuestions[idx%demoQuestions.length],correctCount=Object.values(attempts).filter(a=>a.correct).length;
+ const correctCount=Object.values(attempts).filter(a=>a.correct).length;
  const toggleSave=(id:string)=>setSaved(old=>{const n=old.includes(id)?old.filter(x=>x!==id):[...old,id];localStorage.setItem('ji-bookmarks',JSON.stringify(n));return n});
- const submit=()=>{if(!answer.trim())return;setChecked(true);const n={...attempts,[q.id]:{answer,correct:answer.trim().toLowerCase()===q.answer.toLowerCase()}};setAttempts(n);localStorage.setItem('ji-attempts',JSON.stringify(n))};
- const next=()=>{setIdx(x=>(x+1)%demoQuestions.length);setAnswer('');setChecked(false)};
- const toggleMarked=()=>setMarked(old=>{const n=old.includes(q.id)?old.filter(x=>x!==q.id):[...old,q.id];localStorage.setItem('ji-marked',JSON.stringify(n));return n});
  return <div className="app-shell"><aside className={menu?'sidebar open':'sidebar'}><div className="brand"><div className="brand-mark"><Activity size={22}/></div><div><b>JEE INSIGHTS</b><small>PRO · PREPARATION INTELLIGENCE</small></div><button className="icon-btn close-menu" onClick={()=>setMenu(false)}><X/></button></div><div className="workspace"><span className="eyebrow">WORKSPACE</span><div className="workspace-pill"><span className="live-dot"/> JEE MAIN 2027 <ChevronDown size={14}/></div></div><nav>{nav.map(([label,Icon])=><button key={label} className={'nav-item '+(page===label?'active':'')} onClick={()=>{setPage(label);setMenu(false)}}><Icon size={18}/><span>{label}</span>{label==='PYQ Archive'&&<span className="nav-count">5Y</span>}</button>)}</nav><div className="sidebar-bottom"><div className="mini-card"><Sparkles size={16}/><b>Build your edge.</b><p>Practice with feedback. Review every concept.</p></div><div className="profile"><div className="avatar">JI</div><div><b>Guest learner</b><small>Progress saved on this device</small></div></div></div></aside>
  <main className="main"><header className="topbar"><button className="icon-btn menu-btn" onClick={()=>setMenu(true)}><Menu/></button><div className="crumb">Workspace <span>/</span> <b>{page}</b></div><div className="top-actions"><span className="status"><i/> LOCAL PROGRESS ENABLED</span><span className="top-avatar">JI</span></div></header>
  <div className="content">

@@ -8,7 +8,8 @@ const years=['All years','2026','2025','2024','2023','2022'];
 function App(){
  const [page,setPage]=useState('Overview'),[menu,setMenu]=useState(false),[query,setQuery]=useState(''),[year,setYear]=useState('All years');
  const [saved,setSaved]=useState<string[]>(()=>JSON.parse(localStorage.getItem('ji-bookmarks')||'[]'));
- const [attempts,setAttempts]=useState<Record<string,{answer:string;correct:boolean}>>(()=>JSON.parse(localStorage.getItem('ji-attempts')||'{}'));
+ const [marked]=useState<string[]>(()=>JSON.parse(localStorage.getItem('ji-marked')||'[]'));
+ const [attempts]=useState<Record<string,{answer:string;correct:boolean}>>(()=>JSON.parse(localStorage.getItem('ji-attempts')||'{}'));
  const filtered=useMemo(()=>papers.filter(p=>(year==='All years'||String(p.year)===year)&&(p.year+' '+p.date+' '+p.session+' '+p.shift).toLowerCase().includes(query.toLowerCase())),[year,query]);
  const correctCount=Object.values(attempts).filter(a=>a.correct).length;
  const toggleSave=(id:string)=>setSaved(old=>{const n=old.includes(id)?old.filter(x=>x!==id):[...old,id];localStorage.setItem('ji-bookmarks',JSON.stringify(n));return n});

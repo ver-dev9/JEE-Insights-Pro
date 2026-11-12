@@ -11,3 +11,8 @@ Primary source: [NTA JEE Main](https://jeemain.nta.nic.in/). Master document lis
 | 2022 | [2022 Session 1 recorded-response notice](https://jeemain.nta.nic.in/document/subject-for-english-display-of-provisional-answer-keys-and-question-paper-with-recorded-responses-for-answer-key-challenge-for-jee-main-2022-session-1/) and [NTA archive](https://jeemain.nta.nic.in/document-category/archive/) | Session 1 recorded-response notice found; session 2 and full shift-level extraction pending. |
 
 **Important:** a public notice or answer-key PDF is not itself a complete question bank. The app must not report a question as imported until the prompt, options/values, correct answer and solution have all been reviewed against the corresponding paper and final key.
+
+
+## Supplementary shift-paper index
+
+[AglaSem JEE Main question-paper index](https://docs.aglasem.com/org/nta/jee-main/question-paper) lists 444 paper documents across 2013–2026, including many 2022–2026 shifts. This is a **third-party index**, not an NTA publication. Use it as a discovery aid only; verify each paper and its answer key against NTA material before importing individual questions. The app's year rows link to this index, but this does not mean the questions have been transcribed into the interactive bank.

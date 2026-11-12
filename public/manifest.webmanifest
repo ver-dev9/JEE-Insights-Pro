@@ -1,0 +1,16 @@
+{
+  "name": "JEE Insights Pro",
+  "short_name": "JEE Insights",
+  "description": "JEE Main preparation, official paper archive and interactive practice.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#080d19",
+  "theme_color": "#080d19",
+  "icons": [
+    {
+      "src": "./logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

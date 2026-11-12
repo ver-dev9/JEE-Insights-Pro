@@ -1,6 +1,7 @@
 export type Paper = { id:string; year:number; session:string; date:string; shift:string; subject:string; paper:string; url:string; source:string; status:'official-pdf'|'official-archive'; note:string };
 const nta='https://jeemain.nta.nic.in/documents/';
 export const papers:Paper[]=[
+...jan2026,
 { id:'2026-04-02-s1',year:2026,session:'Session 2 · April',date:'02 Apr 2026',shift:'Shift 1',subject:'All subjects',paper:'Paper 1 · B.E./B.Tech',url:'https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2026/04/202604092096865379.pdf',source:'NTA',status:'official-pdf',note:'Direct PDF linked from NTA JEE Main homepage.'},
 { id:'2026-04-02-s2',year:2026,session:'Session 2 · April',date:'02 Apr 2026',shift:'Shift 2',subject:'All subjects',paper:'Paper 1 · B.E./B.Tech',url:'https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2026/04/20260409481957146.pdf',source:'NTA',status:'official-pdf',note:'Direct PDF linked from NTA JEE Main homepage.'},
 { id:'2026-04-04-s1',year:2026,session:'Session 2 · April',date:'04 Apr 2026',shift:'Shift 1',subject:'All subjects',paper:'Paper 1 · B.E./B.Tech',url:'https://cdnbbsr.s3waas.gov.in/s3f8e59f4b2fe7c5705bf878bbd494ccdf/uploads/2026/04/202604091916616339.pdf',source:'NTA',status:'official-pdf',note:'Direct PDF linked from NTA JEE Main homepage.'},

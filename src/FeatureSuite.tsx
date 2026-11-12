@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { Download, Search, ShieldAlert, Sparkles, Plus, Trash2, LockKeyhole, Database, CalendarDays, ChartNoAxesCombined } from 'lucide-react';
+import { Download, Search, ShieldAlert, Sparkles, Plus, Trash2, LockKeyhole, Database, ChartNoAxesCombined } from 'lucide-react';
 import questions from './data/questions.json';
 
 type Page = 'Chapter Heatmap' | 'Exam Simulator' | 'Personal Analytics' | 'Study Planner' | 'Question Explorer';
@@ -13,7 +13,7 @@ const muted = {color:'#8da2bd',fontSize:12,lineHeight:1.7} as const;
 function Empty({title,detail}:{title:string;detail:string}) { return <div style={{...panel,textAlign:'center',padding:'38px 20px'}}><Database size={26} color="#75b7ff"/><h3 style={{fontFamily:'Manrope',color:'#e4efff',margin:'13px 0 7px'}}>{title}</h3><p style={{...muted,maxWidth:560,margin:'auto'}}>{detail}</p></div> }
 function downloadCsv(name:string, rows:string[][]) { const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n'); const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})); const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url); }
 export default function FeatureSuite({page}:{page:Page}) {
- const [subject,setSubject]=useState('All subjects'),[period,setPeriod]=useState('All available years'),[search,setSearch]=useState(''),[sort,setSort]=useState('Chapter');
+ const [subject,setSubject]=useState('All subjects'),[period,setPeriod]=useState('All available years'),[search,setSearch]=useState('');
  const [tasks,setTasks]=useState<Task[]>(()=>JSON.parse(localStorage.getItem('ji-planner-tasks')||'[]'));
  const [draft,setDraft]=useState(''),[minutes,setMinutes]=useState(60),[taskSubject,setTaskSubject]=useState('Physics');
  const [attempts]=useState<Record<string,{answer:string;correct:boolean}>>(()=>JSON.parse(localStorage.getItem('ji-attempts')||'{}'));

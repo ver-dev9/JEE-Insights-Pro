@@ -1,30 +1,32 @@
-# Verified JEE Main Paper 1 data collection
+# JEE Main question-bank import status
 
-## Current import status
+## Archive inventory
 
-- User-supplied archive indexed: **104 PDFs** (37 Physics, 36 Chemistry, 31 Mathematics).
-- Chapter/year analysis available in the site: **8,366 question appearances for 2022–2026** and **11,593 for 2020–2026**.
-- Verified question rows in Supabase/static question JSON: **0**.
-- Complete 2022–2026 shift papers imported and QA-approved: **0**.
-- Final answer-key mappings reviewed in the database: **0**.
+- User-supplied archive: **104 PDFs** (37 Physics, 36 Chemistry, 31 Mathematics).
+- Indexed chapter/year appearances: **8,366 for 2022–2026** and **11,593 for 2020–2026**.
+- These are PDF question appearances, not deduplicated unique questions or official weightage.
 
-The user stated that they own the uploaded PDFs and explicitly authorized their use in JEE Insights Pro. The repository currently contains the archive's chapter/year metadata, not the full PDF binaries or verified question text.
+## Import pipeline added
 
-## What is live now
+- `scripts/extract-prepwiser-pdfs.py` extracts question candidates, date/shift metadata, available options and answer-key entries.
+- Each candidate retains its source PDF, page number and original question number.
+- `scripts/import-prepwiser-candidates.mjs` imports records into Supabase with `verification_status='needs-review'`.
+- `supabase/migrations/202611130001_reviewable_questions.sql` allows the practice page to display these clearly labelled review candidates.
+- Practice mode disables answer reveal for unreviewed candidates. CBT continues to use verified, published complete papers only.
 
-- The Chapter Heatmap page displays all current syllabus units.
-- Each mapped unit shows its source chapter-PDF coverage and year-wise question appearances for 2022–2026.
-- Historical Chemistry PDFs outside the current syllabus mapping are shown separately.
-- The dashboard labels counts as PDF appearances because a question may occur in more than one chapter/topic PDF.
+## What is not complete yet
 
-## Remaining question-bank import work
+- The Supabase database has **not yet received these candidate rows**.
+- The extraction and import scripts are committed, but they require the user's local Supabase URL and service-role key in an untracked `.env.local`. Those credentials are not available to this repository automation and must never be pasted into chat or committed.
+- Extracted formulas, diagrams, some options and answer keys may be incomplete. Candidates must remain `needs-review` until checked against the source PDF and final answer key.
+- No partial chapter PDF is represented as a complete shift paper.
 
-The Practice and CBT components intentionally query only `verification_status='verified'` rows from Supabase. Do not mark extracted text as verified automatically. For each question, visually check the complete statement, mathematical notation, diagrams, options, year/date/shift, chapter/topic and final answer. Then use the existing import pipeline:
+## Run the import locally
 
-1. Prepare reviewed records using `docs/verified-question-import-template.json`.
-2. Run `node scripts/validate-question-import.mjs path/to/reviewed.json`.
-3. Configure local untracked `.env.local` with `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
-4. Run `node scripts/import-verified-questions.mjs path/to/reviewed.json`.
-5. Keep paper batches unpublished until their complete question count, subject counts, marking scheme and final answer key have been audited.
+1. From the repository root, install the extractor dependency: `python -m pip install pymupdf`.
+2. Extract the uploaded ZIP: `python scripts/extract-prepwiser-pdfs.py "PrepWiser-JEE-Main-PYQ-PDFs.zip"`.
+3. Add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` to local `.env.local`.
+4. Apply database migrations: `supabase db push`.
+5. Import candidates: `node scripts/import-prepwiser-candidates.mjs data/prepwiser-question-candidates.json`.
 
-Never put the Supabase service-role key in frontend variables or commit it.
+Never expose the service-role key in frontend variables or commit it. Only promote a question to `verified` after checking its full statement, options, diagrams, chapter, exam metadata and answer key.

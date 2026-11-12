@@ -10,4 +10,13 @@ test('capture desktop and mobile product screenshots',async({browser})=>{
  await mobile.goto('http://127.0.0.1:4173',{waitUntil:'networkidle'});
  await expect(mobile.locator('.hero h1')).toBeVisible();
  await mobile.screenshot({path:'docs/screenshots/mobile.png',fullPage:true});
+ await desktop.getByRole('button',{name:/Chapter Heatmap/}).click();
+ await expect(desktop.getByText('No verified chapter data yet')).toBeVisible();
+ await desktop.screenshot({path:'docs/screenshots/chapter-heatmap-empty-state.png',fullPage:true});
+ await desktop.getByRole('button',{name:/Question Explorer/}).click();
+ await expect(desktop.getByText('Question bank is awaiting verified imports')).toBeVisible();
+ await desktop.screenshot({path:'docs/screenshots/question-explorer-empty-state.png',fullPage:true});
+ await mobile.getByRole('button',{name:/Study Planner/}).click();
+ await expect(mobile.getByText(/No tasks yet/)).toBeVisible();
+ await mobile.screenshot({path:'docs/screenshots/study-planner-mobile.png',fullPage:true});
 });

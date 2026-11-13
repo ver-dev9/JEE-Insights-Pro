@@ -73,7 +73,8 @@ const updates = rows.map(r => ({
 for (let start = 0; start < updates.length; start += 100) {
   const batch = updates.slice(start, start + 100);
   const { data, error } = await supabase.rpc('apply_question_source_metadata', { p_rows: batch });
-  if (error) throw new Error(`Question metadata batch ${start} failed: ${error.message}`);\n  if (Number(data) !== batch.length) throw new Error(`Question metadata batch ${start}: expected ${batch.length} updates, received ${data}`);
+  if (error) throw new Error(`Question metadata batch ${start} failed: ${error.message}`);
+  if (Number(data) !== batch.length) throw new Error(`Question metadata batch ${start}: expected ${batch.length} updates, received ${data}`);
   if ((start + batch.length) % 1000 === 0) console.log('Updated metadata:', start + batch.length, '/', updates.length);
 }
 console.log(JSON.stringify({

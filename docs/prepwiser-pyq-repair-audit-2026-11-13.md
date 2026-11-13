@@ -1,45 +1,60 @@
 # PrepWiser PYQ repair audit — 13 November 2026
 
-## Scope
+## Source archive and extraction
 - Source archive: `PrepWiser-JEE-Main-PYQ-PDFs (1)(1).zip`
 - PDFs: 104
 - PDF pages: 2,186
-- Extracted question candidates: 11,593
-- Subject distribution: Physics 3,980; Chemistry 3,659; Mathematics 3,954
-- Source answer entries found: 11,585
+- Question candidates: 11,593
+- Physics: 3,980; Chemistry: 3,659; Mathematics: 3,954
+- Source answer entries extracted: 11,585
 - Missing source answer entries: 8
-- Numerical candidates: 3,424
-- Non-numerical candidates with four option strings detected by the first-pass parser: 8,169
 
-## First-pass quality signals
-These are **non-exclusive heuristic flags**, not counts of confirmed errors. A question can have several flags.
+## Page-faithful image repair completed
+- Individual WebP question crops rendered: 11,593
+- Unique question IDs: 11,593
+- Missing image files in the generated bundle: 0
+- Total image asset size: approximately 84.6 MB
+- Sample checked: the Chemistry reaction question crop preserves the chemical structure, reaction arrow, statements and all four answer choices.
+- Each image is based on the original PrepWiser PDF page; images are visual evidence, not independent answer verification.
 
-| Signal | Candidate count | Meaning |
-|---|---:|---|
-| Possible formula/layout gaps | 3,815 | Text extraction contains suspicious blank gaps; likely notation/layout loss in at least some records |
-| At least one blank option string | 3,314 | One or more extracted option strings are empty |
-| MCQ option count other than four | 379 | First-pass option parser did not return exactly four options |
-| Very short/empty extracted prompt | 68 | Needs direct comparison with original PDF |
-| Missing answer entry in source key | 8 | No matching answer entry was extracted from the PDF key |
+## Automated quality flags
+Flags overlap; they are not all confirmed errors.
 
-The parser also produced occasional page-footer spillover and question/option text concatenation. Therefore the counts above must not be interpreted as proof that all other records are correct.
+| Flag | Candidates |
+|---|---:|
+| Blank extracted option text | 3,314 |
+| MCQ option count other than four | 379 |
+| Visual content reference (figure/diagram/reaction etc.) | 1,207 |
+| Empty or short extracted prompt | 8 |
+| Missing source answer entry | 8 |
 
-## Repair stage added
-`scripts/render-prepwiser-question-pages.py` renders a page-faithful image crop for each question from the original PDF, using the question header and the next question header as visual boundaries. It writes:
-- WebP question images under `public/question-pages/`
-- A repair manifest with original PDF, page, question number, image path, answer provenance, and quality flags
+The image crops preserve original layout when the text parser loses formulas or diagrams. The extracted text and option strings are still retained for audit; use the original page crop as the visual source of truth.
 
-Run after the existing extractor:
-```bash
-python -m pip install pymupdf pillow
-python scripts/extract-prepwiser-pdfs.py "PrepWiser-JEE-Main-PYQ-PDFs.zip" -o data/prepwiser-question-candidates.json
-python scripts/render-prepwiser-question-pages.py "PrepWiser-JEE-Main-PYQ-PDFs.zip" data/prepwiser-question-candidates.json
+## Database preparation
+Applied additive columns to `public.questions`:
+- `source_pdf`, `source_page`, `source_question_number`
+- `source_answer_value`, `answer_provenance`, `quality_flags`
+
+Added a service-role-only RPC, `public.apply_question_source_metadata(jsonb)`, to batch-update existing question rows without accidentally inserting partial records. Added a migration file in the repository for both schema changes and the RPC.
+
+The Practice workspace now selects and displays `image_url` when present. The uploader creates a public `question-assets` Storage bucket if needed, uploads WebP files, then calls the restricted RPC to set image URLs and provenance.
+
+## Production safety
+- Production currently remains unchanged: 11,593 questions, 0 image URLs, 0 source metadata rows, 11,593 `needs-review`, 0 verified.
+- No question rows were deleted or replaced.
+- No answer was marked verified.
+- PrepWiser PDF answer entries are recorded as source provenance only. They are not independent verification of the official NTA final answer key.
+- The image bundle has been generated and validated locally. It must be extracted into the local repository and uploaded with the service-role script before production questions display the images.
+
+## Local upload step
+Download `jee-pyq-repair-assets-2026-11-13.zip` from the ChatGPT conversation, extract it into the repository root (preserve `public/` and `data/` paths), pull the latest `main`, then run:
+
+```powershell
+git pull origin main
+npm install
+node scripts/upload-prepwiser-repair-assets.mjs data/prepwiser-repair-manifest.json public/question-pages
 ```
 
-## Publication and answer policy
-- The current production question bank is **not deleted or overwritten** by this repair stage.
-- All imported source answers remain `needs-review`; PrepWiser's PDF answer-key section is provenance, not independent NTA verification.
-- A visual crop is evidence for restoring notation, figures, and option layout; it does not itself verify the answer.
-- Do not set `verification_status='verified'` until the question and answer are independently checked against a reliable official key/source.
-- Stage and validate the manifest and assets before any production swap.
-- The generated image assets must be deployed to the site's static host or uploaded to configured object storage before the manifest image paths can work in production.
+The repository's `.env.local` must contain `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`. Never commit or share that file. The script is resumable at the asset level through Storage upsert and does not change verification status.
+
+After upload, verify counts for `image_url` and `source_pdf`, then test subject and chapter practice. Keep answer reveal disabled for all `needs-review` rows until independent answer validation is completed.

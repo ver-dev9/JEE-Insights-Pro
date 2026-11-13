@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Download, Search, ShieldAlert, Sparkles, Plus, Trash2, LockKeyhole, Database, ChartNoAxesCombined } from 'lucide-react';
 import questions from './data/questions.json';

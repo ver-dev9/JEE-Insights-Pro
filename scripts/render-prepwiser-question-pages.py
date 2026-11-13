@@ -13,7 +13,7 @@ def main():
     ap.add_argument("candidates")
     ap.add_argument("--output-dir",default="public/question-pages")
     ap.add_argument("--manifest",default="data/prepwiser-repair-manifest.json")
-    ap.add_argument("--public-base-url",default="/question-pages")
+    ap.add_argument("--public-base-url",default="/JEE-Insights-Pro/question-pages")
     ap.add_argument("--scale",type=float,default=1.15)
     a=ap.parse_args()
     rows=json.loads(Path(a.candidates).read_text(encoding="utf-8"))

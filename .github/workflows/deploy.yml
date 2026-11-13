@@ -22,9 +22,6 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
-        env:
-          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Capture desktop and mobile screenshots
